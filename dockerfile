@@ -1,2 +1,1 @@
-FROM python:3.11
-USER root
+FROM python:3.11-slim
