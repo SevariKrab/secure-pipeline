@@ -9,6 +9,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install Python dependencies
+        run: pip install gigachat
+
       - name: Run Custom Security Auditor
         run: python3 project-audit.py dockerfile
         env:
