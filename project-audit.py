@@ -78,7 +78,7 @@ def ai_audit(file_content):
 
         with GigaChat(credentials=api_key, verify_ssl_certs=False, model="GigaChat-3-Ultra") as client:
             response = client.chat(prompt)
-            print(f"{COLORS['CYAN']}[AI] Ответ GigaChat:{COLORS['RESET']}")
+            print(f"{COLORS['CYAN']}[AI] Ответ ИИ:{COLORS['RESET']}")
             print(response.choices[0].message.content)
             
     except Exception as e:
