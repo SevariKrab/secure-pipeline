@@ -1,0 +1,26 @@
+name: Secure Pipeline
+
+on: [push]
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Custom Security Auditor
+        run: python3 project-audit.py dockerfile
+        env:
+          AI_API_KEY: ${{ secrets.AI_API_KEY }}
+
+      - name: Build Docker Image
+        run: docker build -t myapp:latest -f dockerfile .
+
+      - name: Run Trivy Scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'myapp:latest'
+          format: 'table'
+          exit-code: '1'
+          severity: 'CRITICAL'
