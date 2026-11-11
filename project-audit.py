@@ -74,7 +74,7 @@ def ai_audit(file_content):
         
         prompt = f"""Ты — эксперт по безопасности Docker. Проанализируй этот Dockerfile и найди потенциальные уязвимости или плохие практики. Ответь кратко, списком, только если есть реальные проблемы:
 
-         {filecontent}"""
+         {file_content}"""
 
         with GigaChat(credentials=api_key, verify_ssl_certs=False, model="GigaChat-3-Ultra") as client:
             response = client.chat(prompt)
