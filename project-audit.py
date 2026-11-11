@@ -67,8 +67,23 @@ def ai_audit(file_content):
          print(f"\n{COLORS['CYAN']}[AI] Проверка пропущена: переменная AI_API_KEY не найдена{COLORS['RESET']}")
          return
 
-    print(f"\n{COLORS['CYAN']}[AI] Ключ найден!{COLORS['RESET']}")
-    print(f"{COLORS['CYAN']}[AI] Здесь будет анализ кода от ИИ{COLORS['RESET']}")
+    print(f"\n{COLORS['CYAN']}[AI] Ключ найден. Анализ dockerfile от ИИ{COLORS['RESET']}")
+
+    try:
+        from gigachat import GigaChat
+        
+        prompt = f"""Ты — эксперт по безопасности Docker. Проанализируй этот Dockerfile и найди потенциальные уязвимости или плохие практики. Ответь кратко, списком, только если есть реальные проблемы:
+
+         {filecontent}"""
+
+        with GigaChat(credentials=api_key, verify_ssl_certs=False, model="GigaChat-3-Ultra") as client:
+            response = client.chat(prompt)
+            print(f"{COLORS['CYAN']}[AI] Ответ GigaChat:{COLORS['RESET']}")
+            print(response.choices[0].message.content)
+            
+    except Exception as e:
+        print(f"{COLORS['ORANGE']}[AI] Ошибка при запросе к ИИ: {e}{COLORS['RESET']}")
+        print(f"{COLORS['ORANGE']}[AI] ИИ-проерка пропущена, чтобы не ломать сборку{COLORS['RESET']}")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
