@@ -19,7 +19,7 @@ DANGEROUS_PATTERNS = {
         "msg": "ВНИМАНИЕ: Возможная утечка секретных данных",
         "color": COLORS["ORANGE"]
     },
-    r"ADD\s+": {
+    r"^ADD\s+": {
         "msg": "ВНИМАНИЕ: Использование ADD вместо COPY небезопасно",
         "color": COLORS["ORANGE"]
     },
